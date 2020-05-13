@@ -1,0 +1,35 @@
+Name: Samuel Liu
+
+
+# Lab 2 Part 1 (find the number of magic words in lines of code)
+#!/bin/bash
+
+find /usr/src/kernels -name '*.h' | xargs cat | grep -i 'magic' | wc -l #this will go into the kernel directory, find all instances of the word 'magic' in the code, and output the number of times found
+
+# Lab 2 Part 2
+#!/bin/bash
+
+while IFS=: read -r f1 f2 f3 f4 f5 f6 f7 #accessing the systems users and groups from /etc/
+do
+	echo "$f1 $f3 `id -Gn $f1`" #this will enumerate the system's users and groups
+done < /etc/passwd
+
+# Lab 2 Part 3
+#!/bin/bash
+
+if [ -f /root/lab2_test.file ] #file location
+then
+	date +"%m-%d-%y %T" | xargs echo -n >> /var/log/cs183/uptime.log #logs the date and time the file is accessed/attempted
+	echo " - File \""$(readlink -f lab2_test.file)"\" has been found" >> /var/log/cs183/uptime.log #uploads working log message to uptime.log
+else
+	date +"%m-%d-%y %T" | xargs echo -n >> /var/log/cs183/uptime.log #logs the date and time the file is accessed/attempted
+	echo " - File \""$(readlink -f lab2_test.file)"\" has been lost" >> /var/log/cs183/uptime.log #uploads failure log message to uptime.log
+fi
+
+#using crontab to automate the logging process, we use crontab -e to access /tmp/crontab 
+
+crontab -e
+
+#once in /tmp/crontab, we type this command to automate every 2 seconds
+
+*/2 * * * * /root/lab2_test.file

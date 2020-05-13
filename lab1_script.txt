@@ -1,0 +1,21 @@
+
+
+#!/bin/bash
+
+chkconfig apmd off //there is no need for advanced power management subsystem
+chkconfig autofs off //since there is no usb/dvd for the minimal installation, do not need this
+chkconfig bluetooth off //bluetooth will not be in use for this lab
+chkconfig hidd off //hidd will not be used for the purpose of this lab
+chkconfig cups off //do not need printing service
+chkconfig gpm off //minimal installation does not come with mouse support
+chkconfig hplip off //will not be using printer for the sake of this lab
+chkconfig kudzu off //we will not be adding additional hardware
+chkconfig Im_sensors off //there is no need for monitoring motherboard sensor values
+chkconfig readahead_early off //will not need any one time boot caching
+chkconfig readahead_later off //will not need any one time boot caching
+
+// ^^those are from the website. below are the services disabled at boot for the purpose of this lab.
+
+chkconfig postfix.service off //will not need to use mail for this lab. This service allows a user to send electronic mail
+chkconfig sound.target off //will not need sound for this lab or ever probably
+chkconfig kdump off //kdump creates crash dumps after a crash. will not need for the purpose of labs
